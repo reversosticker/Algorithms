@@ -1,0 +1,38 @@
+Problem statement 
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+Notice that the solution set must not contain duplicate triplets.
+
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        //value of data should be same and working sh
+        Map<Integer,Integer> hash  = new HashMap<Integer,Integer>();
+        
+        Set<List<Integer>> ans  = new HashSet<>();
+        for(int i=0;i<nums.length;i++){
+            hash.put(nums[i],i);
+        }
+        
+        for(int i=0;i<nums.length;i++){
+            for(int j=i+1;j<nums.length;j++){
+                int val = nums[i]+nums[j];
+                val=val*-1;
+                if(hash.containsKey(val)){
+                    if(hash.get(val)!=i && hash.get(val)!=j){
+                        //remove duplicate from ans..
+                        List<Integer> temp = new ArrayList<Integer>();
+                        temp.add(nums[i]);
+                        temp.add(nums[j]);
+                        temp.add(val);
+                        Collections.sort(temp);
+                        ans.add(temp);
+                    }
+                }
+            }
+        }
+        return new ArrayList<>(ans);
+    }
+}
